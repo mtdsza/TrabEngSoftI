@@ -83,7 +83,7 @@ O sistema estará rodando! Acesse a URL: **[http://127.0.0.1:8000](http://127.0.
 Para o primeiro acesso, utilize as credenciais de administrador criadas no passo 7:
 
 - **Login:** `admin`
-- **Senha:** `password`
+- **Senha:** `adminodonto`
 
 Após o login, o administrador pode criar novas contas de usuário (Secretaria, Profissional) através da seção "Usuários" na barra lateral.
 
