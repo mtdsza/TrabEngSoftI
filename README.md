@@ -19,7 +19,7 @@ Siga este guia no seu terminal para configurar e executar o projeto.
 
 **1. Clone o Repositório**
 ```bash
-git clone https://github.com/mtdsza/TrabalhoDWEB2.git
+git clone https://github.com/mtdsza/TrabEngSoftI.git
 ```
 
 **2. Acesse a Pasta do Projeto**
