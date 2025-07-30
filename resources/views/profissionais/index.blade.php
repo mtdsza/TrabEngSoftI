@@ -7,11 +7,8 @@
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
     @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
@@ -35,6 +32,14 @@
                     <td>{{ $profissional->email }}</td>
                     <td>
                         <a href="{{ route('profissionais.edit', $profissional->id_profissional) }}" class="btn btn-primary btn-sm">Editar</a>
+                        
+                        @if($profissional->salario_base > 0)
+                        <form action="{{ route('profissionais.lancarSalario', $profissional->id_profissional) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Confirmar lançamento do pagamento de R$ {{ number_format($profissional->salario_base, 2, ',', '.') }}?')">Pagar Salário</button>
+                        </form>
+                        @endif
+
                         <form action="{{ route('profissionais.destroy', $profissional->id_profissional) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

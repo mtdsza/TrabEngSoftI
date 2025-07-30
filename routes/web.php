@@ -14,10 +14,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RelatorioFinanceiroController;
 use App\Http\Controllers\ProcedimentoRealizadoController;
+use App\Http\Controllers\FuncionarioController;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -48,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/consultas/{consulta}/finalizar', [ConsultaController::class, 'finalizar'])->name('consultas.finalizar');
     Route::post('/consultas/{consulta}/realizar-procedimento', [ProcedimentoRealizadoController::class, 'store'])->name('procedimentos-realizados.store');
     Route::post('/procedimentos-realizados/{procedimentoRealizado}/anexar', [ProcedimentoRealizadoController::class, 'anexar'])->name('procedimentos-realizados.anexar');
+    Route::get('/estoque/{estoque}/movimentacoes', [EstoqueController::class, 'movimentacoes'])->name('estoque.movimentacoes');
+    Route::post('/profissionais/{profissional}/lancar-salario', [ProfissionalController::class, 'lancarSalario'])->name('profissionais.lancarSalario');
+    Route::resource('funcionarios', FuncionarioController::class);
+    Route::post('/funcionarios/{funcionario}/lancar-salario', [FuncionarioController::class, 'lancarSalario'])->name('funcionarios.lancarSalario');
 
 });
 

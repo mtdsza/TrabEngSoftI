@@ -6,6 +6,7 @@ use App\Models\Estoque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\MovimentacaoGeralEstoque;
+use App\Models\MovimentacaoFinanceira;
 
 class EstoqueController extends Controller
 {
@@ -66,25 +67,51 @@ class EstoqueController extends Controller
             'id_item_estoque' => 'required|exists:estoque,id_item_estoque',
             'quantidade' => 'required|numeric|min:0.001',
             'justificativa' => 'nullable|string|max:255',
+            'valor_compra' => 'nullable|numeric|min:0',
         ]);
 
         try {
             DB::beginTransaction();
             $item = Estoque::findOrFail($request->id_item_estoque);
             $item->increment('quantidade', $request->quantidade);
-
             MovimentacaoGeralEstoque::create([
                 'id_item_estoque' => $request->id_item_estoque,
                 'quantidade' => $request->quantidade,
                 'tipo' => 'Entrada',
                 'justificativa' => $request->justificativa ?? 'Entrada manual no sistema',
             ]);
-
+            if ($request->filled('valor_compra')) {
+                MovimentacaoFinanceira::create([
+                    'descricao' => "Compra de estoque: " . ($request->justificativa ?? $item->descricao),
+                    'valor' => $request->valor_compra,
+                    'tipo' => 'Saida',
+                    'data_movimentacao' => now(),
+                ]);
+            }
             DB::commit();
             return redirect()->route('estoque.index')->with('success', 'Entrada de estoque registrada com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Erro ao registrar entrada: ' . $e->getMessage());
         }
+    }
+
+    public function movimentacoes(Estoque $estoque)
+    {
+        $entradas = $estoque->movimentacoesGerais()->get();
+        $saidas = $estoque->usosEmConsulta()->with('consulta.paciente')->get();
+        $movimentacoes = $entradas->map(function ($item) {
+            $item->data_mov = $item->data_movimentacao;
+            return $item;
+        })->concat($saidas->map(function ($item) {
+            $item->data_mov = $item->data_uso;
+            $item->tipo = 'Uso em Consulta'; 
+            return $item;
+        }))->sortByDesc('data_mov');
+
+        return view('estoque.movimentacoes', [
+            'item' => $estoque,
+            'movimentacoes' => $movimentacoes,
+        ]);
     }
 }

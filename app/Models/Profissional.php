@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Profissional extends Model
 {
     use HasFactory;
+
     protected $table = 'profissionais';
     protected $primaryKey = 'id_profissional';
     public $timestamps = false;
+
     protected $fillable = [
         'nome',
         'email',

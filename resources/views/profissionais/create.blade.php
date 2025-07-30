@@ -21,7 +21,30 @@
             <label for="telefone" class="form-label">Telefone:</label>
             <input type="text" id="telefone" name="telefone" class="form-control">
         </div>
+        <div class="mb-3">
+            <label for="salario_base" class="form-label">Salário Base (R$):</label>
+            <input type="number" step="0.01" id="salario_base" name="salario_base" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="especialidades" class="form-label">Especialidades (segure Ctrl para selecionar várias):</label>
+            <select name="especialidades[]" id="especialidades" class="form-select" multiple>
+                @foreach($especialidades as $especialidade)
+                    <option value="{{ $especialidade->id_especialidade }}">{{ $especialidade->nome }}</option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Salvar Profissional</button>
         <a href="{{ route('profissionais.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection
+
+@push('scripts')
+<script>
+    const telefoneElement = document.getElementById('telefone');
+    const telefoneMaskOptions = {
+        mask: '(00) 00000-0000',
+        lazy: false
+    };
+    const telefoneMask = IMask(telefoneElement, telefoneMaskOptions);
+</script>
+@endpush

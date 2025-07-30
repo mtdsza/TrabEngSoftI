@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Relatório Financeiro</h1>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Relatório Financeiro</h1>
         <a href="{{ route('financeiro.createDespesa') }}" class="btn btn-danger">Lançar Nova Despesa</a>

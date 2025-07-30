@@ -14,7 +14,7 @@
             </div>
             <div class="card shadow-sm mt-4">
                 <div class="card-header fs-5">
-                    Próximas Consultas do Dia
+                    Consultas do Dia
                 </div>
                 <ul class="list-group list-group-flush">
                     @forelse($consultasHoje as $consulta)

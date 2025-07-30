@@ -31,12 +31,14 @@
                 <td>{{ $item->quantidade }}</td>
                 <td>{{ $item->estoque_min }}</td>
                 <td>
+                    <a href="{{ route('estoque.movimentacoes', $item->id_item_estoque) }}" class="btn btn-info btn-sm">Mov.</a>
                     <a href="{{ route('estoque.edit', $item->id_item_estoque) }}" class="btn btn-primary btn-sm">Editar</a>
                     <form action="{{ route('estoque.destroy', $item->id_item_estoque) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza?')">Excluir</button>
                     </form>
+                </td>
                 </td>
             </tr>
             @empty
