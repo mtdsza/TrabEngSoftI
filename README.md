@@ -24,7 +24,7 @@ git clone https://github.com/mtdsza/TrabEngSoftI.git
 
 **2. Acesse a Pasta do Projeto**
 ```bash
-cd TrabalhoDWEB2
+cd TrabEngSoftI
 ```
 
 **3. Instale as Dependências do PHP**
