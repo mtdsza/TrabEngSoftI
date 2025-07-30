@@ -7,7 +7,7 @@ Este é um sistema web desenvolvido como projeto para as disciplinas de Desenvol
 Para executar este projeto em sua máquina local, você precisará de um ambiente de desenvolvimento web. A maneira mais fácil é usar um pacote "tudo-em-um" como o **Laragon** (para Windows) ou o **XAMPP** (Windows, macOS, Linux).
 
 Certifique-se de que seu ambiente tenha:
-- PHP (versão 8.1 ou superior)
+- PHP (versão 8.2 ou superior)
 - MySQL ou MariaDB
 - Composer ([instruções de instalação](https://getcomposer.org/download/))
 - Node.js e NPM ([instruções de instalação](https://nodejs.org/))
@@ -19,7 +19,7 @@ Siga este guia no seu terminal para configurar e executar o projeto.
 
 **1. Clone o Repositório**
 ```bash
-git clone [https://github.com/mtdsza/TrabalhoDWEB2.git](https://github.com/mtdsza/TrabalhoDWEB2.git)
+git clone https://github.com/mtdsza/TrabalhoDWEB2.git
 ```
 
 **2. Acesse a Pasta do Projeto**
@@ -35,6 +35,11 @@ composer install
 
 **4. Crie o Arquivo de Configuração de Ambiente**
 Copie o arquivo de exemplo `.env.example` para um novo arquivo chamado `.env`.
+*Se estiver usando o **CMD** do Windows:*
+```bash
+copy .env.example .env
+```
+*Se estiver usando **Linux, macOS ou Git Bash** no Windows:*
 ```bash
 cp .env.example .env
 ```
@@ -46,11 +51,11 @@ php artisan key:generate
 ```
 
 **6. Configure o Banco de Dados**
-a. Usando uma ferramenta como o phpMyAdmin, HeidiSQL ou DBeaver, crie um novo banco de dados vazio (ex: `odontosys`).
+a. Usando uma ferramenta como o phpMyAdmin, MySQL Workbench ou DBeaver, crie um novo banco de dados vazio (ex: `odontosys`).
 
-b. Abra o arquivo `.env` que você acabou de criar e edite as seguintes linhas com os dados do seu banco de dados local:
+b. Abra o arquivo `.env` que você acabou de criar e edite as seguintes linhas com os dados do seu banco de dados local (certifique-se de que as linhas NÃO estão comentadas):
 ```ini
-DB_CONNECTION=mysql
+DB_CONNECTION=mysql    # <--- Certifique-se de que está usando o MySQL
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=odontosys  # <--- Coloque o nome do banco que você criou
@@ -76,7 +81,7 @@ npm run build
 php artisan serve
 ```
 
-O sistema estará rodando! Acesse a URL: **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
+O sistema estará rodando! Acesse a URL: **[http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)**
 
 ## Acesso ao Sistema
 
@@ -88,6 +93,6 @@ Para o primeiro acesso, utilize as credenciais de administrador criadas no passo
 Após o login, o administrador pode criar novas contas de usuário (Secretaria, Profissional) através da seção "Usuários" na barra lateral.
 
 ## Tecnologias Utilizadas
-- **Backend:** Laravel 11, PHP 8.2
-- **Frontend:** Blade, Bootstrap 5, JavaScript
+- **Backend:** Laravel 12, PHP 8.2
+- **Frontend:** Blade, Bootstrap 5, JavaScript, IMask.js
 - **Banco de Dados:** MySQL / MariaDB
